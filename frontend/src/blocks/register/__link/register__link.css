@@ -1,0 +1,12 @@
+.register__link {
+  text-decoration: none;
+  cursor: pointer;
+}
+  
+.register__link:hover {
+  opacity: 0.5;
+}
+
+.register__link:visited {
+  color: #fff;
+}

@@ -1,0 +1,12 @@
+.popup__form_type_infotooltip {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 620px) {
+  .popup__form_type_infotooltip {
+    margin-top: 50px;
+  }
+}
