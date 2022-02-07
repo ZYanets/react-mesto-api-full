@@ -1,6 +1,8 @@
 const allowedCors = [
   'https://expressmesto.students.nomoredomains.xyz/',
   'http://expressmesto.students.nomoredomains.xyz/',
+  'https://api.expressmesto.students.nomoredomains.xyz/',
+  'http://api.expressmesto.students.nomoredomains.xyz/',
   'localhost:3000',
 ];
 
@@ -14,6 +16,7 @@ module.exports = (req, res, next) => {
 
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
   }
 
   // Если это предварительный запрос, добавляем нужные заголовки
