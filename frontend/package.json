@@ -14,13 +14,12 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* zyanets@130.193.50.239:/home/zyanets/react-mesto-api-full/frontend"
   },
-  "homepage": "https://ZYanets.github.io/react-mesto-auth",
   "eslintConfig": {
     "extends": [
       "react-app",

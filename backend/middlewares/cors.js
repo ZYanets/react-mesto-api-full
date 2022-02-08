@@ -1,8 +1,8 @@
 const allowedCors = [
-  'https://expressmesto.students.nomoredomains.xyz/',
-  'http://expressmesto.students.nomoredomains.xyz/',
-  'https://api.expressmesto.students.nomoredomains.xyz/',
-  'http://api.expressmesto.students.nomoredomains.xyz/',
+  'https://expressmesto.students.nomoredomains.xyz',
+  'http://expressmesto.students.nomoredomains.xyz',
+  'https://api.expressmesto.students.nomoredomains.xyz',
+  'http://api.expressmesto.students.nomoredomains.xyz',
   'localhost:3000',
 ];
 
