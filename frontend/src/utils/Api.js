@@ -17,12 +17,21 @@ class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
+  _getHeaders() {
+    const jwt = localStorage.getItem('jwt');
+    return {
+      "Authorization" : `Bearer ${jwt}`,
+      ...this._headers
+  }
+}
+
   /* ---------------------- Получение карточек с сервера ----------------------*/
   getCardList() {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
     })
       .then(this._getInfo());
   }
@@ -31,8 +40,8 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
     })
       .then(this._getInfo());
   }
@@ -41,8 +50,8 @@ class Api {
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
       body: JSON.stringify({
         name: data.name,
         about: data.about
@@ -55,8 +64,8 @@ class Api {
   addCard(cardData) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
       body: JSON.stringify({
         name: cardData.name,
         link: cardData.link
@@ -69,8 +78,8 @@ class Api {
   deleteCard(card) {
     return fetch(`${this._baseUrl}/cards/${card._id}`, {
       method: 'DELETE',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
     })
       .then(this._getInfo());
   }
@@ -79,8 +88,8 @@ class Api {
   changeLikeCardStatus(cardData, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardData}`, {
       method: isLiked ? 'PUT' : 'DELETE',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
     })
       .then(this._getInfo());
   }
@@ -90,8 +99,8 @@ class Api {
   setUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._getHeaders(),
+      //credentials: "include",
       body: JSON.stringify({
         avatar: data.avatar,
       })
