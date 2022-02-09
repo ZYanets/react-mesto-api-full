@@ -3,7 +3,7 @@ const allowedCors = [
   'http://expressmesto.students.nomoredomains.xyz',
   'https://api.expressmesto.students.nomoredomains.xyz',
   'http://api.expressmesto.students.nomoredomains.xyz',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
