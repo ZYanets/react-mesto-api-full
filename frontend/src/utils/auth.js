@@ -40,13 +40,13 @@ export const authorize = (password, email) => {
   })
 };
 
-export const checkToken = (token) => {
+export const checkToken = (jwt) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${jwt}`,
     },
     credentials: "include",
   })
