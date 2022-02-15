@@ -136,7 +136,7 @@ function App() {
     .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
   } 
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     api.getUserInfo()
     .then((userData) => {
       setCurrentUser(userData);
@@ -150,12 +150,12 @@ function App() {
       setCards(cardData);
     })
     .catch(err => console.log(`Ошибка при загрузке данных карточек с сервера: ${err}`))
-  }, []);
+  }, []); */
 
   React.useEffect(() => {
-    if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      auth.checkToken(jwt)
+    if (localStorage.getItem('token')){
+      const token = localStorage.getItem('token');
+      auth.checkToken(token)
       .then((res) => {
         if (res) {
           console.log(res.data)
@@ -165,6 +165,16 @@ function App() {
           }
       })
       .catch(err => console.log(`Ошибка при загрузке токена пользователя: ${err}`))
+      api.getUserInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch(err => console.log(`Ошибка при загрузке данных пользователя с сервера: ${err}`))
+      api.getCardList()
+        .then((cardData) => {
+          setCards(cardData);
+        })
+        .catch(err => console.log(`Ошибка при загрузке данных карточек с сервера: ${err}`))
     }
   }, [history]);
 
