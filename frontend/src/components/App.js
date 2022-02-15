@@ -77,29 +77,17 @@ function App() {
   function handleLogin({password, email}) {
     auth.authorize(password, email)
     .then((data) => {
-      localStorage.setItem('jwt', data.token);
-      handleToken();
-     })
+      if (data.token) {
+      setIsLoggedIn(true);
+      setUserEmail(email);
+      history.push('/')
+      }
+    })
     .catch(err => console.log(`Ошибка при входе: ${err}`))
   }
 
-  function handleToken() {
-    const jwt = localStorage.getItem('jwt');
-    console.log(jwt);
-    if (jwt) {
-      auth.checkToken(jwt)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setUserEmail(res.email);
-          history.push('/');
-        })
-        .catch((err) => {console.log(`Ошибка при проверке токена: ${err}`)
-        })    
-    }
-  }
-
-  function handleSignOut() {
-    localStorage.removeItem('token');
+   function handleSignOut() {
+    localStorage.removeItem('jwt');
     setIsLoggedIn(false);
     history.push('/login');
   }
@@ -148,7 +136,7 @@ function App() {
     .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
   } 
 
-  /* React.useEffect(() => {
+  React.useEffect(() => {
     api.getUserInfo()
     .then((userData) => {
       setCurrentUser(userData);
@@ -162,19 +150,22 @@ function App() {
       setCards(cardData);
     })
     .catch(err => console.log(`Ошибка при загрузке данных карточек с сервера: ${err}`))
-  }, []); */
+  }, []);
 
   React.useEffect(() => {
-    handleToken();
-    if (isLoggedIn) {
-      Promise.all([api.getUserInfo(), api.getCardList()])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData);
-          setCards(cardData);
-        })
-        .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err}`))
+    if (localStorage.getItem('jwt')){
+      const jwt = localStorage.getItem('jwt');
+      auth.checkToken(jwt)
+      .then((res) => {
+        if (res) {
+          setUserEmail(res.data.email)
+          setIsLoggedIn(true)
+          history.push('/');
+          }
+      })
+      .catch(err => console.log(`Ошибка при загрузке токена пользователя: ${err}`))
     }
-  }, [isLoggedIn]);
+  }, [history]);
 
     return (
     <CurrentUserContext.Provider value={currentUser}>

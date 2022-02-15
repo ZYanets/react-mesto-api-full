@@ -31,12 +31,12 @@ export const authorize = (password, email) => {
   .then((res) => checkResponse(res))
 };
 
-export const checkToken = (jwt) => {
+export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${jwt}`,
+    //  'Authorization': `Bearer ${jwt}`,
     },
     credentials: 'include',
   })
