@@ -27,7 +27,7 @@ module.exports.getCurrentUser = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.login = (req, res, next) => {
+/* module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -49,7 +49,7 @@ module.exports.login = (req, res, next) => {
         });
     })
     .catch(next);
-};
+}; */
 
 module.exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
