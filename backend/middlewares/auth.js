@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(
-      req.cookies.token,
+      req.cookies,
       NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
     );
   } catch (err) {
