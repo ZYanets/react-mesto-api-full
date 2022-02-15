@@ -13,7 +13,7 @@ export const register = (password, email) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
+    //credentials: 'include',
     body: JSON.stringify({password, email})
   })
   .then((res) => checkResponse(res))
@@ -29,12 +29,6 @@ export const authorize = (password, email) => {
     body: JSON.stringify({password, email})
   })
   .then((res) => checkResponse(res))
-  .then((data) => {
-    if (data.token){
-      localStorage.setItem('jwt', data.token);
-      return data;
-    } 
-  })
 };
 
 export const checkToken = (jwt) => {
