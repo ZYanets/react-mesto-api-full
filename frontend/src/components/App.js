@@ -172,30 +172,15 @@ function App() {
 
   React.useEffect(() => {
     if (isLoggedIn === true) {
-      history.push('/');
       Promise.all([api.getUserInfo(), api.getCardList()])
         .then(([userData, cardData]) => {
           setCurrentUser(userData);
           setCards(cardData);
+          history.push('/');
         })
         .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err}`))
     }
   }, [isLoggedIn, history])
-
-/* React.useEffect(() => {
-    if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      auth.checkToken(jwt)
-      .then((res) => {
-        if (res) {
-          setUserEmail(res.data.email);
-          setIsLoggedIn(true);
-          history.push('/');
-          }
-      })
-      .catch(err => console.log(`Ошибка при загрузке токена пользователя: ${err}`))
-    }
-  }, [history]); */
 
     return (
     <CurrentUserContext.Provider value={currentUser}>
