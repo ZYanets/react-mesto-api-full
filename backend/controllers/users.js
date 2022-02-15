@@ -27,7 +27,7 @@ module.exports.getCurrentUser = (req, res, next) => {
     .catch(next);
 };
 
-/* module.exports.login = (req, res, next) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -41,15 +41,16 @@ module.exports.getCurrentUser = (req, res, next) => {
       );
 
       res
-        .cookie('jwt', token, {
+        /* .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
           sameSite: false,
           secure: true,
-        });
+        }); */
+        .send({ token });
     })
     .catch(next);
-}; */
+};
 
 module.exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)

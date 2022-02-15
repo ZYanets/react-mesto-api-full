@@ -152,20 +152,20 @@ function App() {
     .catch(err => console.log(`Ошибка при загрузке данных карточек с сервера: ${err}`))
   }, []);
 
-  /* React.useEffect(() => {
+ React.useEffect(() => {
     if (localStorage.getItem('jwt')){
       const jwt = localStorage.getItem('jwt');
       auth.checkToken(jwt)
       .then((res) => {
         if (res) {
-          setUserEmail(res.data.email)
-          setIsLoggedIn(true)
+          setUserEmail(res.data.email);
+          setIsLoggedIn(true);
           history.push('/');
           }
       })
       .catch(err => console.log(`Ошибка при загрузке токена пользователя: ${err}`))
     }
-  }, [history]); */
+  }, [history]);
 
     return (
     <CurrentUserContext.Provider value={currentUser}>

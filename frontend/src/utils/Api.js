@@ -104,7 +104,7 @@ class Api {
 const api = new Api({
   baseUrl: 'http://api.expressmesto.students.nomoredomains.xyz',
   headers: {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   },
   credentials: 'include',
