@@ -1,11 +1,11 @@
 require('dotenv').config();
-// const cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
 const errorHandler = require('./middlewares/error-handler');
 const auth = require('./middlewares/auth');
 const {
@@ -19,13 +19,13 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cors);
+// app.use(cors);
 
-/* app.use(cors({
+app.use(cors({
   origin: ['https://expressmesto.students.nomoredomains.xyz',
     'http://expressmesto.students.nomoredomains.xyz'], // домен фронтенда
   credentials: true, // для того, чтобы CORS поддерживал кроссдоменные куки
-})); */
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
