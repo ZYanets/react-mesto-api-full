@@ -31,14 +31,14 @@ export const authorize = (password, email) => {
   .then((res) => checkResponse(res))
 };
 
-/* export const checkToken = (token) => {
+export const checkToken = (jwt) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': {token},
+      'Authorization': `Bearer ${jwt}`,
     },
     credentials: 'include',
   })
   .then((res) => checkResponse(res))
-}*/
+}

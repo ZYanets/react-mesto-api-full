@@ -77,18 +77,24 @@ function App() {
   function handleLogin({password, email}) {
     auth.authorize(password, email)
     .then((data) => {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('jwt', data.token);
       handleToken();
-      setUserEmail(email);
-    })
+     })
     .catch(err => console.log(`Ошибка при входе: ${err}`))
   }
 
   function handleToken() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-      history.push('/')
+    const jwt = localStorage.getItem('jwt');
+    console.log(jwt);
+    if (jwt) {
+      auth.checkToken(jwt)
+        .then((res) => {
+          setIsLoggedIn(true);
+          setUserEmail(res.email);
+          history.push('/');
+        })
+        .catch((err) => {console.log(`Ошибка при проверке токена: ${err}`)
+        })    
     }
   }
 
