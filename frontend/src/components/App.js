@@ -173,13 +173,13 @@ function App() {
   React.useEffect(() => {
     if (isLoggedIn === true) {
       history.push('/');
+      Promise.all([api.getUserInfo(), api.getCardList()])
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData);
+          setCards(cardData);
+        })
+        .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err}`))
     }
-    Promise.all([api.getUserInfo(), api.getCardList()])
-      .then(([userData, cardData]) => {
-        setCurrentUser(userData);
-        setCards(cardData);
-      })
-      .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err}`))
   }, [isLoggedIn, history])
 
 /* React.useEffect(() => {
