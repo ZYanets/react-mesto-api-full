@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,12 +14,18 @@ const {
 const { login, createUser } = require('./controllers/users');
 const NotFoundError = require('./errors/not-found-error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cors);
+// app.use(cors);
+
+app.use(cors({
+  origin: ['https://expressmesto.students.nomoredomains.xyz',
+    'http://expressmesto.students.nomoredomains.xyz'], // домен фронтенда
+  credentials: true, // для того, чтобы CORS поддерживал кроссдоменные куки
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

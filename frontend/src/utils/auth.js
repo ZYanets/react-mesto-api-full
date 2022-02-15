@@ -29,15 +29,9 @@ export const authorize = (password, email) => {
     body: JSON.stringify({password, email})
   })
   .then((res) => checkResponse(res))
-  .then((data) => {
-    if (data.token){
-      localStorage.setItem('token', data.token);
-      return data;
-    } 
-  })
 };
 
-export const checkToken = (token) => {
+/* export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
@@ -47,4 +41,4 @@ export const checkToken = (token) => {
     credentials: 'include',
   })
   .then((res) => checkResponse(res))
-}
+}*/

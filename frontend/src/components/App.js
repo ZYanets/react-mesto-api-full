@@ -77,17 +77,23 @@ function App() {
   function handleLogin({password, email}) {
     auth.authorize(password, email)
     .then((data) => {
-      if (data.token) {
-      setIsLoggedIn(true);
+      localStorage.setItem('token', data.token);
+      handleToken();
       setUserEmail(email);
-      history.push('/')
-      }
     })
     .catch(err => console.log(`Ошибка при входе: ${err}`))
   }
 
+  function handleToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+      history.push('/')
+    }
+  }
+
   function handleSignOut() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
     history.push('/login');
   }
@@ -153,30 +159,16 @@ function App() {
   }, []); */
 
   React.useEffect(() => {
-    if (localStorage.getItem('token')){
-      const token = localStorage.getItem('token');
-      auth.checkToken(token)
-      .then((res) => {
-        if (res) {
-          console.log(res.data)
-          setUserEmail(res.data.email)
-          setIsLoggedIn(true)
-          history.push('/');
-          }
-      })
-      .catch(err => console.log(`Ошибка при загрузке токена пользователя: ${err}`))
-      api.getUserInfo()
-        .then((userData) => {
+    handleToken();
+    if (isLoggedIn) {
+      Promise.all([api.getUserInfo(), api.getCardList()])
+        .then(([userData, cardData]) => {
           setCurrentUser(userData);
-        })
-        .catch(err => console.log(`Ошибка при загрузке данных пользователя с сервера: ${err}`))
-      api.getCardList()
-        .then((cardData) => {
           setCards(cardData);
         })
-        .catch(err => console.log(`Ошибка при загрузке данных карточек с сервера: ${err}`))
+        .catch(err => console.log(`Ошибка при загрузке данных с сервера: ${err}`))
     }
-  }, [history]);
+  }, [isLoggedIn]);
 
     return (
     <CurrentUserContext.Provider value={currentUser}>
